@@ -52,10 +52,3 @@ void creer_operation(t_operation* tabOpe, int ordre){
 }
 
 
-void contrainte_exclusion(t_operation* tabOpe, int ordre) {
-    FILE *file = fopen("../exclusions.txt", "r");
-    if (!file) {
-        printf("probleme lecture du fichier exclusions.txt");
-        exit(-1);
-    }
-}
