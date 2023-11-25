@@ -108,5 +108,30 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
         }
     }
 
+    // Algorithme de Welsh Powell
+    for (int i = 0; i < ordre; i++) {
+        if (tabOpe[i].couleur == 0) {  // Si aucune couleur n'est encore assignée
+            int couleur = 1;
+            int couleur_valide;
+
+            do {
+                couleur_valide = 1;
+                for (int j = 0; j < ordre; j++) {
+                    if (matriceExclusion[tabOpe[i].numero - 1][tabOpe[j].numero - 1] == 1 && couleur == tabOpe[j].couleur) {
+                        couleur_valide = 0;
+                        break;
+                    }
+                }
+                if (!couleur_valide) {
+                    couleur++;
+                }
+            } while (!couleur_valide);
+
+            tabOpe[i].couleur = couleur;
+        }
+    }
+
+
+
 
 
