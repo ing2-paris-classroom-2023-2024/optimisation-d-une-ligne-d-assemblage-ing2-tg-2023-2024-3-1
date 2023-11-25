@@ -135,3 +135,5 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
 
 
 
+
+
