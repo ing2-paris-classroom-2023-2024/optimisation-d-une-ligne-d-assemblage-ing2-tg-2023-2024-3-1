@@ -80,5 +80,11 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
         }
     }
 
+    //Implémentation des valeurs du fichier dans la matrice qui est indexée à 0 et symétrique
+    int num1, num2;
+    while ((fscanf(file, "%d %d", &num1, &num2)) == 2){
+        matriceExclusion[num1 - 1][num2 - 1] = 1;
+        matriceExclusion[num2 - 1][num1 - 1] = 1;
 
+    }
 
