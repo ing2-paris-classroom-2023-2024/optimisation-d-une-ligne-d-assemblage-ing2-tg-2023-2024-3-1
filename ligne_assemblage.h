@@ -19,4 +19,6 @@ void creer_operation(t_operation* tabOpe, int ordre);
 
 void contrainte_exclusion(t_operation* tabOpe, int ordre);
 
+void contrainte_precedence(t_operation* tabOpe, int ordre);
+
 #endif //OPTIMISATION_D_UNE_LIGNE_D_ASSEMBLAGE_ING2_TG_2023_2024_3_1_LIGNE_ASSEMBLAGE_H
