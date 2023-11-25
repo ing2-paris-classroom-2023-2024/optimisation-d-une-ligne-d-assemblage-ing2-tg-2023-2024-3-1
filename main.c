@@ -23,3 +23,24 @@ int lire_ordre(){
     }
     return ordre;
 }
+
+
+int lire_valeur_du_cycle()
+{
+    FILE *fichier = fopen("fichier.txt", "r");//modifier le nom du fichier cycle si besoin
+
+    if (fichier == NULL) {
+        perror("Erreur lors de l'ouverture du fichier");
+        exit(EXIT_FAILURE);
+    }
+
+    int cycle;
+    if (fscanf(fichier, "%d", &cycle) != 1) {
+        fprintf(stderr, "Erreur lors de la lecture de l'entier depuis le fichier\n");
+        exit(EXIT_FAILURE);
+    }
+
+    fclose(fichier);
+    printf("la valeur du cycle est de %d", cycle);
+    return cycle;
+}
