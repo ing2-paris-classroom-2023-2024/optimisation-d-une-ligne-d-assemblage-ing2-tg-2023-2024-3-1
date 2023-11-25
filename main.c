@@ -9,6 +9,8 @@ int main() {
     for (int i = 0; i < ordre; ++i) {
         printf("%d %0.2f\n", tabOpe[i].numero, tabOpe[i].temps);
     }
+    contrainte_exclusion(tabOpe, ordre);
+
     free(tabOpe);
     return 0;
 }
@@ -19,9 +21,11 @@ int lire_ordre(){
         printf("probleme lecture du fichier operations.txt");
         exit(-1);
     }
+
+    //récupération du nombre de lignes du fichier
     int ordre = 0;
     int c;
-    while ((c=fgetc(file))!= EOF){
+    while ((c=fgetc(file))!= EOF){ //EOF = End Of File
         if (c == '\n'){
             ordre++;
         }
@@ -37,6 +41,7 @@ void creer_operation(t_operation* tabOpe, int ordre){
         exit(-1);
     }
 
+    //Initialisation du tableau comportant toutes les données des opérations
     for (int i = 0; i < ordre; i++) {
         fscanf(file,"%d %f",&tabOpe[i].numero, &tabOpe[i].temps);
         tabOpe[i].degre = 0;
@@ -47,10 +52,10 @@ void creer_operation(t_operation* tabOpe, int ordre){
 }
 
 
-void contrainte_exclusion(t_operation* tabOpe, int ordre){
+void contrainte_exclusion(t_operation* tabOpe, int ordre) {
     FILE *file = fopen("../exclusions.txt", "r");
-    if (!file){
-        printf("probleme lecture du fichier operations.txt");
+    if (!file) {
+        printf("probleme lecture du fichier exclusions.txt");
         exit(-1);
     }
 }
