@@ -88,3 +88,25 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
 
     }
 
+    // Calcul des degrés pour chaque opération
+    for (int i = 0; i < ordre; i++) {
+        for (int j = 0; j < ordre; j++) {
+            if (matriceExclusion[tabOpe[i].numero - 1][tabOpe[j].numero - 1] == 1) {
+                tabOpe[i].degre++;
+            }
+        }
+    }
+
+    // Tri des opérations par degré décroissant
+    for (int i = 0; i < ordre - 1; i++) {
+        for (int j = 0; j < ordre - i - 1; j++) {
+            if (tabOpe[j].degre < tabOpe[j + 1].degre) {
+                t_operation temp = tabOpe[j];
+                tabOpe[j] = tabOpe[j + 1];
+                tabOpe[j + 1] = temp;
+            }
+        }
+    }
+
+
+
