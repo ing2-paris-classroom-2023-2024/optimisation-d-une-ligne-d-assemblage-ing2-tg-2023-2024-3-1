@@ -28,7 +28,7 @@ int lire_ordre(){
 int lire_valeur_du_cycle()
 {
     // ouvrir le fichier cycle changer le nom ici si la valeur du temps_cycle n'est le fichier nomme cycle
-    FILE *fichier = fopen("temps_cycle.txt", "r");//modifier le nom du fichier cycle si besoin
+    FILE *fichier = fopen("../temps_cycle.txt", "r");//modifier le nom du fichier cycle si besoin
 // message erreur si le fichier n'est pas trouver
     if (fichier == NULL) {
         perror("Erreur lors de l'ouverture du fichier");
@@ -42,6 +42,5 @@ int lire_valeur_du_cycle()
     }
 
     fclose(fichier);
-    printf("la valeur du cycle est de %d", cycle);// ligne a enlever surement pour le projet
     return cycle;
 }
