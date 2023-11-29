@@ -9,8 +9,10 @@ int main() {
     for (int i = 0; i < ordre; ++i) {
         printf("%d %0.2f\n", tabOpe[i].numero, tabOpe[i].temps);
     }
-    contrainte_precedence_temps(tabOpe, ordre);
     contrainte_exclusion(tabOpe, ordre);
+    contrainte_precedence_temps(tabOpe, ordre);
+
+
     free(tabOpe);
     return 0;
 }
@@ -60,6 +62,11 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
         exit(-1);
     }
 
+    t_operation* tabOpeTri = tabOpe;
+    for (int i = 0; i < ordre; ++i) {
+        tabOpeTri[i] = tabOpe[i];
+    }
+
     //Récupération de la valeur du sommet la plus élevée pour créer la matrice adéquate
     int ordreExclusion = 0, op1, op2;
 
@@ -92,8 +99,8 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
     // Calcul des degrés pour chaque opération
     for (int i = 0; i < ordre; i++) {
         for (int j = 0; j < ordre; j++) {
-            if (matriceExclusion[tabOpe[i].numero - 1][tabOpe[j].numero - 1] == 1) {
-                tabOpe[i].degre++;
+            if (matriceExclusion[tabOpeTri[i].numero - 1][tabOpeTri[j].numero - 1] == 1) {
+                tabOpeTri[i].degre++;
             }
         }
     }
@@ -101,24 +108,25 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
     // Tri des opérations par degré décroissant
     for (int i = 0; i < ordre - 1; i++) {
         for (int j = 0; j < ordre - i - 1; j++) {
-            if (tabOpe[j].degre < tabOpe[j + 1].degre) {
-                t_operation temp = tabOpe[j];
-                tabOpe[j] = tabOpe[j + 1];
-                tabOpe[j + 1] = temp;
+            if (tabOpeTri[j].degre < tabOpeTri[j + 1].degre) {
+                t_operation temp = tabOpeTri[j];
+                tabOpeTri[j] = tabOpeTri[j + 1];
+                tabOpeTri[j + 1] = temp;
             }
         }
     }
 
+
     // Algorithme de Welsh Powell
     for (int i = 0; i < ordre; i++) {
-        if (tabOpe[i].couleur == 0) {  // Si aucune couleur n'est encore assignée
+        if (tabOpeTri[i].couleur == 0) {  // Si aucune couleur n'est encore assignée
             int couleur = 1;
             int couleur_valide;
 
             do {
                 couleur_valide = 1;
                 for (int j = 0; j < ordre; j++) {
-                    if (matriceExclusion[tabOpe[i].numero - 1][tabOpe[j].numero - 1] == 1 && couleur == tabOpe[j].couleur) {
+                    if (matriceExclusion[tabOpeTri[i].numero - 1][tabOpeTri[j].numero - 1] == 1 && couleur == tabOpeTri[j].couleur) {
                         couleur_valide = 0;
                         break;
                     }
@@ -128,7 +136,7 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
                 }
             } while (!couleur_valide);
 
-            tabOpe[i].couleur = couleur;
+            tabOpeTri[i].couleur = couleur;
         }
     }
 
@@ -137,17 +145,18 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
     //Récupération de la couleur maximale après le passage de Welsh Powell
     int max_couleur = 0;
     for (int i = 0; i < ordre; i++) {
-        if (tabOpe[i].couleur > max_couleur) {
-            max_couleur = tabOpe[i].couleur;
+        if (tabOpeTri[i].couleur > max_couleur) {
+            max_couleur = tabOpeTri[i].couleur;
         }
     }
 
+    printf("\ncontrainte exclusion\n");
     // Pour chaque couleur, afficher les opérations correspondantes
     for (int couleur = 1; couleur <= max_couleur; couleur++) {
         printf("Station %d : ", couleur);
         for (int i = 0; i < ordre; i++) {
-            if (tabOpe[i].couleur == couleur) {
-                printf("%d ", tabOpe[i].numero);
+            if (tabOpeTri[i].couleur == couleur) {
+                printf("%d ", tabOpeTri[i].numero);
             }
         }
         printf("\n");
@@ -163,7 +172,19 @@ void contrainte_exclusion(t_operation* tabOpe, int ordre){
 }
 
 
-void contrainte_temps(t_operation *tabOpe, int ordre, float temps_cycle) {
+void contrainte_temps(t_operation *tabOpe, int ordre) {
+    FILE *file1 = fopen("../temps_cycle.txt", "r");
+    if (!file1) {
+        printf("probleme lecture du fichier temps_cycle.txt");
+        exit(-1);
+    }
+
+    creer_operation(tabOpe, ordre);
+
+    //récupération du temps de cycle dans le fichier
+    float temps_cycle;
+    fscanf(file1, "%f", &temps_cycle);
+
     int station_actuelle = 0;
     float temps_actuel = 0;
 
@@ -179,6 +200,7 @@ void contrainte_temps(t_operation *tabOpe, int ordre, float temps_cycle) {
             i--; // Reconsidérer la même opération pour la nouvelle station
         }
     }
+    fclose(file1);
 
 }
 
@@ -191,17 +213,20 @@ void afficher_stations(t_operation *tabOpe, int ordre) {
         }
     }
 
+    printf("\ncontrainte temps x precedence\n");
     for (int couleur = 0; couleur <= max_station; couleur++) {
         printf("Station %d : ", couleur);
         for (int i = 0; i < ordre; i++) {
             if (tabOpe[i].station == couleur) {
-                printf("debut a %0.2f pour %d \n", tabOpe[i].debut, tabOpe[i].numero);
+                //printf("debut a %0.2f pour %d \n", tabOpe[i].debut, tabOpe[i].numero);
+                printf("%d ", tabOpe[i].numero);
             }
         }
         printf("\n");
     }
 
 }
+
 
 void contrainte_precedence_temps(t_operation *tabOpe, int ordre) {
     FILE *file = fopen("../precedences.txt", "r");
@@ -210,52 +235,8 @@ void contrainte_precedence_temps(t_operation *tabOpe, int ordre) {
         exit(-1);
     }
 
-    FILE *file1 = fopen("../temps_cycle.txt", "r");
-    if (!file1) {
-        printf("probleme lecture du fichier temps_cycle.txt");
-        exit(-1);
-    }
-
-    //récupération du temps de cycle dans le fichier
-    float temps_cycle;
-    fscanf(file1, "%f", &temps_cycle);
-
-    //Récupération de la valeur du sommet la plus élevée pour créer la matrice adéquate
-    int ordrePrecedence = 0, op1, op2;
-    while (fscanf(file, "%d %d", &op1, &op2) == 2) {
-        if (op1 > ordrePrecedence) {
-            ordrePrecedence = op1;
-        }
-        if (op2 > ordrePrecedence) {
-            ordrePrecedence = op2;
-        }
-    }
-    rewind(file); //on revient au début du fichier
-
-    // Initialisation de la matrice dynamique qui permet de stocker les informations du fichier
-    int **matricePrecedence = (int **) malloc(ordrePrecedence * sizeof(int *));
-    for (int i = 0; i < ordrePrecedence; i++) {
-        matricePrecedence[i] = (int *) malloc(ordrePrecedence * sizeof(int));
-        for (int j = 0; j < ordrePrecedence; j++) {
-            matricePrecedence[i][j] = 0;  // Initialisation de la matrice à 0
-        }
-    }
-
-    //Matrice non-symétrique, car il faut respecter l'ordre de précédence
-    int num1, num2;
-    while (fscanf(file, "%d %d", &num1, &num2) == 2) {
-        matricePrecedence[num1 - 1][num2 - 1] = 1;
-    }
-
-    contrainte_temps(tabOpe, ordre, temps_cycle);
-
+    contrainte_temps(tabOpe, ordre);
     afficher_stations(tabOpe, ordre);
 
-    // On libère la mémoire
-    for (int i = 0; i < ordre; i++) {
-        free(matricePrecedence[i]);
-    }
-    free(matricePrecedence);
     fclose(file);
-    fclose(file1);
 }
