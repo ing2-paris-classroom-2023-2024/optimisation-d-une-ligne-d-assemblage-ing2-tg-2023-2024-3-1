@@ -8,10 +8,18 @@ void contrainte_exclusion_temps(t_operation* tabOpe, int ordre) {
         exit(-1);
     }
 
-    t_operation* tabOpeTri = tabOpe;
-    for (int i = 0; i < ordre; ++i) {
-        tabOpeTri[i] = tabOpe[i];
+    FILE *file1 = fopen("../temps_cycle.txt", "r");
+    if (!file1) {
+        printf("probleme lecture du fichier temps_cycle.txt");
+        exit(-1);
     }
+    //récupération du temps de cycle dans le fichier
+    float temps_cycle;
+    fscanf(file1, "%f", &temps_cycle);
+
+    //On remet le tableau d'opérations en ordre
+    creer_operation(tabOpe, ordre);
+
 
     //Récupération de la valeur du sommet la plus élevée pour créer la matrice adéquate
     int ordreExclusion = 0, op1, op2;
@@ -45,8 +53,8 @@ void contrainte_exclusion_temps(t_operation* tabOpe, int ordre) {
     // Calcul des degrés pour chaque opération
     for (int i = 0; i < ordre; i++) {
         for (int j = 0; j < ordre; j++) {
-            if (matriceExclusion[tabOpeTri[i].numero - 1][tabOpeTri[j].numero - 1] == 1) {
-                tabOpeTri[i].degre++;
+            if (matriceExclusion[tabOpe[i].numero - 1][tabOpe[j].numero - 1] == 1) {
+                tabOpe[i].degre++;
             }
         }
     }
@@ -54,10 +62,10 @@ void contrainte_exclusion_temps(t_operation* tabOpe, int ordre) {
     // Tri des opérations par degré décroissant
     for (int i = 0; i < ordre - 1; i++) {
         for (int j = 0; j < ordre - i - 1; j++) {
-            if (tabOpeTri[j].degre < tabOpeTri[j + 1].degre) {
-                t_operation temp = tabOpeTri[j];
-                tabOpeTri[j] = tabOpeTri[j + 1];
-                tabOpeTri[j + 1] = temp;
+            if (tabOpe[j].degre < tabOpe[j + 1].degre) {
+                t_operation temp = tabOpe[j];
+                tabOpe[j] = tabOpe[j + 1];
+                tabOpe[j + 1] = temp;
             }
         }
     }
@@ -65,48 +73,47 @@ void contrainte_exclusion_temps(t_operation* tabOpe, int ordre) {
 
     // Algorithme de Welsh Powell
     for (int i = 0; i < ordre; i++) {
-        if (tabOpeTri[i].couleur == 0) {  // Si aucune couleur n'est encore assignée
-            int couleur = 1;
-            int couleur_valide;
+        if (tabOpe[i].station == 0) {  // Si aucune station n'est encore assignée
+            int station = 1;
+            int station_valide;
 
             do {
-                couleur_valide = 1;
+                station_valide = 1;
                 for (int j = 0; j < ordre; j++) {
-                    if (matriceExclusion[tabOpeTri[i].numero - 1][tabOpeTri[j].numero - 1] == 1 && couleur == tabOpeTri[j].couleur) {
-                        couleur_valide = 0;
+                    if (matriceExclusion[tabOpe[i].numero - 1][tabOpe[j].numero - 1] == 1 && station == tabOpe[j].station) {
+                        station_valide = 0;
                         break;
                     }
                 }
-                if (!couleur_valide) {
-                    couleur++;
+                if (!station_valide) {
+                    station++;
                 }
-            } while (!couleur_valide);
+            } while (!station_valide);
 
-            tabOpeTri[i].couleur = couleur;
+            tabOpe[i].station = station;
+        }
+    }
+
+    int station_actuelle = 1;
+    float temps_actuel = 0;
+
+    for (int i = 0; i < ordre; i++) {
+        if (temps_actuel + tabOpe[i].temps <= temps_cycle) {
+            tabOpe[i].station = station_actuelle;
+            tabOpe[i].debut = temps_actuel;
+            temps_actuel += tabOpe[i].temps;
+        } else {
+            // Passer à la station suivante et réinitialiser le temps actuel
+            station_actuelle++;
+            temps_actuel = 0;
+            i--; // Reconsidérer la même opération pour la nouvelle station
         }
     }
 
     // Affichage des opérations par station/couleur
 
-    //Récupération de la couleur maximale après le passage de Welsh Powell
-    int max_couleur = 0;
-    for (int i = 0; i < ordre; i++) {
-        if (tabOpeTri[i].couleur > max_couleur) {
-            max_couleur = tabOpeTri[i].couleur;
-        }
-    }
-
-    printf("\ncontrainte exclusion\n");
-    // Pour chaque couleur, afficher les opérations correspondantes
-    for (int couleur = 1; couleur <= max_couleur; couleur++) {
-        printf("Station %d : ", couleur);
-        for (int i = 0; i < ordre; i++) {
-            if (tabOpeTri[i].couleur == couleur) {
-                printf("%d ", tabOpeTri[i].numero);
-            }
-        }
-        printf("\n");
-    }
+    printf("\ncontrainte exclusion x temps\n");
+    afficher_stations(tabOpe ,ordre);
 
     //libération de la mémoire
     for (int i = 0; i < ordreExclusion; ++i) {
@@ -115,4 +122,6 @@ void contrainte_exclusion_temps(t_operation* tabOpe, int ordre) {
     free(matriceExclusion);
 
     fclose(file);
+    fclose(file1);
+
 }
