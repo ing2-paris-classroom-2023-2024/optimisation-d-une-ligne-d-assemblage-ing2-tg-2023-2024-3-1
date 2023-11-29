@@ -128,6 +128,54 @@ optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/build
 .PHONY : optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1/fast
 
+exclusion_temps.obj: exclusion_temps.c.obj
+.PHONY : exclusion_temps.obj
+
+# target to build an object file
+exclusion_temps.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion_temps.c.obj
+.PHONY : exclusion_temps.c.obj
+
+exclusion_temps.i: exclusion_temps.c.i
+.PHONY : exclusion_temps.i
+
+# target to preprocess a source file
+exclusion_temps.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion_temps.c.i
+.PHONY : exclusion_temps.c.i
+
+exclusion_temps.s: exclusion_temps.c.s
+.PHONY : exclusion_temps.s
+
+# target to generate assembly for a file
+exclusion_temps.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion_temps.c.s
+.PHONY : exclusion_temps.c.s
+
+ligne_assemblage.obj: ligne_assemblage.c.obj
+.PHONY : ligne_assemblage.obj
+
+# target to build an object file
+ligne_assemblage.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/ligne_assemblage.c.obj
+.PHONY : ligne_assemblage.c.obj
+
+ligne_assemblage.i: ligne_assemblage.c.i
+.PHONY : ligne_assemblage.i
+
+# target to preprocess a source file
+ligne_assemblage.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/ligne_assemblage.c.i
+.PHONY : ligne_assemblage.c.i
+
+ligne_assemblage.s: ligne_assemblage.c.s
+.PHONY : ligne_assemblage.s
+
+# target to generate assembly for a file
+ligne_assemblage.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/ligne_assemblage.c.s
+.PHONY : ligne_assemblage.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -161,6 +209,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1
+	@echo ... exclusion_temps.obj
+	@echo ... exclusion_temps.i
+	@echo ... exclusion_temps.s
+	@echo ... ligne_assemblage.obj
+	@echo ... ligne_assemblage.i
+	@echo ... ligne_assemblage.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
