@@ -1,36 +1,34 @@
 #include "ligne_assemblage.h"
 
-
 int main() {
-    int ordre = lire_ordre();
-    int nb_arrete = lire_nb_arrete();
-    printf("ordre: %d, nombre d'aretes: %d\n", ordre, nb_arrete);
-    printf("ok\n");
+    int ordre = lire_ordre(); // Vous devez définir lire_ordre() en fonction de votre logique
+    int nombre_arrete = lire_nb_arrete(); // Vous devez définir lire_nb_arrete() en fonction de votre logique
+    printf("ordre: %d, nombre d'aretes: %d\n", ordre, nombre_arrete);
+    ordre++;
+    nombre_arrete++;
 
-    t_operation *tabOpe = NULL;
-    cree_struct_sommet(ordre, &tabOpe);
-    printf("ok1\n");
 
-    t_relation *relations = NULL;
-    cree_les_liens(nb_arrete, &relations);
-    printf("ok2\n");
+    // creation arrete pour precedence
+    t_relation *tableau_relations;
+    tableau_relations = (t_relation *)malloc(sizeof(t_relation) * nombre_arrete);
+    cree_les_liens(nombre_arrete, tableau_relations);
 
-    mettre_indice_origine(nb_arrete, &relations);
 
-    //afficher la contrainte de precedence
-    for (int i = 1; i <= ordre; i++) {
-        contrainte_de_precedence(nb_arrete, i, &relations);
+    // creation tableau de sommet pour la precedence
+    t_operation *tableau_operations;
+    tableau_operations = (t_operation *)malloc(sizeof(t_operation) * ordre);
+    cree_les_sommets(ordre, tableau_operations);
+
+
+    //appele pour tout les sommet la fonction contrainte de precedence
+    for (int i = 1; i < 36; i++) {
+        contrainte_de_precedence(nombre_arrete, ordre, i, tableau_relations, tableau_operations);
         printf("\n");
     }
 
-    // Additional code for other constraints
-    // contrainte_exclusion(tabOpe, ordre);
-    // contrainte_precedence_temps(tabOpe, ordre);
-    // contrainte_exclusion_temps(tabOpe, ordre);
-
-    // Free allocated memory
-    free(tabOpe);
-    free(relations);
+    //liberation des tableau precedences
+    free(tableau_relations);
+    free(tableau_operations);
 
     return 0;
 }
@@ -109,21 +107,6 @@ void creer_operation(t_operation *tabOpe, int ordre) {
 
     fclose(file);
 }
-
-void initialiser_tableau_a_0(struct Tableau *tableau, int taille) {
-    tableau->tableau = (int *)malloc(taille * sizeof(int));
-    tableau->taille = taille;
-
-    if (tableau->tableau == NULL) {
-        perror("Erreur allocation mémoire dans initialiser_tableau");
-        exit(-1);
-    }
-
-    for (int i = 0; i < taille; i++) {
-        tableau->tableau[i] = 0;
-    }
-}
-
 
 
 void contrainte_exclusion(t_operation* tabOpe, int ordre){
@@ -292,83 +275,80 @@ void contrainte_precedence_temps(t_operation *tabOpe, int ordre) {
 
 
 
-
-
-void initialiser_tableau(t_operation *donnees) {
-    donnees->degre = 0;
-    donnees->couleur = 0;
-    donnees->station = 0;
-}
-void mettre_indice_origine(int nombre_relations, t_relation **relations) {
-    for (int i = 0; i < nombre_relations; i++) {
-        int indice_origine = (*relations)[i].origine.numero;
-        int indice_destination = (*relations)[i].destination.numero;
-        (*relations)[indice_destination - 1].destination.station = (*relations)[indice_origine - 1].origine.station;
-    }
-}
-
-void cree_struct_sommet(int ordre, t_operation **donnees) {
+//fonction qui lit et qui initialise les structurses des sommets qui pointe vers dans un tableau
+void cree_les_sommets(int nb_sommet, t_operation *tableau_operations) {
     FILE *fichier = fopen("../operations.txt", "r");
-
     if (fichier == NULL) {
         perror("Erreur lors de l'ouverture du fichier");
         return;
     }
 
-    *donnees = (t_operation *)malloc(sizeof(t_operation) * ordre);
-
     int i = 0;
-    while (fscanf(fichier, "%d %f", &(*donnees)[i].numero, &(*donnees)[i].temps) == 2) {
-        // initialiser le tableau à 0 pour tout les structure t_operation
-        initialiser_tableau(&(*donnees)[i]);
+    while (i < nb_sommet && fscanf(fichier, "%d %f", &tableau_operations[i].numero, &tableau_operations[i].temps) == 2) {
         i++;
     }
 
     fclose(fichier);
 }
 
-void cree_les_liens(int nb_arrete, t_relation **relations) {
+//fonction qui lit et qui initialise les structures des arretes qui pointe vers dans un tableau
+void cree_les_liens(int nb_arrete, t_relation *relations) {
     FILE *fichier = fopen("../precedences.txt", "r");
-
     if (fichier == NULL) {
         perror("Erreur lors de l'ouverture du fichier");
         return;
     }
 
-    *relations = (t_relation *)malloc(sizeof(t_relation) * nb_arrete);
-
     int i = 0;
-    while (i < nb_arrete && fscanf(fichier, "%d %d", &(*relations)[i].origine.numero, &(*relations)[i].destination.numero) == 2) {
+    while (i < nb_arrete && fscanf(fichier, "%d %d", &relations[i].origine.numero, &relations[i].destination.numero) == 2) {
         i++;
     }
 
     fclose(fichier);
 }
 
-void contrainte_de_precedence(int nombre_relations, int start, t_relation **relations) {
-    // Adaptation nécessaire ici selon la nouvelle structure
-    int *queue = (int *)malloc(sizeof(int) * nombre_relations);
-    int *visited = (int *)malloc(sizeof(int) * nombre_relations);
 
-    int front = 0, rear = 0;
-    queue[rear++] = start;
-    visited[start] = 1;
+void contrainte_de_precedence(int nombre_relations, int nb_sommet, int start, t_relation *relations, t_operation *operations) {
+    int *visite = (int *)malloc(sizeof(int) * nb_sommet);
 
-    printf("l'ope %d, doit avoir ete precede par : ", start);
+    for (int i = 0; i < nb_sommet; i++) {
+        visite[i] = 0;
+    }
 
-    while (front < rear) {
-        int current = queue[front++];
+    // Skip the starting vertex when printing the result
+    printf("l'ope %d doit avoir ete precede par : ", start);
 
-        printf("%d ", current);
+    //appele du bfs qui est inverser
+    bfs(start, visite, relations, nb_sommet);
 
-        for (int i = 0; i < nombre_relations; i++) {
-            if ((*relations)[i].destination.numero == current && visited[(*relations)[i].origine.numero] == 0) {
-                queue[rear++] = (*relations)[i].origine.numero;
-                visited[(*relations)[i].origine.numero] = 1;
+    printf("\n");
+
+    free(visite);
+}
+
+
+void bfs(int sommet_depart, int *visite, t_relation *relations, int nb_sommets) {
+    int *file = (int *)malloc(sizeof(int) * nb_sommets);
+    int avant = 0, arriere = 0;
+
+
+    file[arriere++] = sommet_depart;
+    visite[sommet_depart - 1] = 1;
+
+    while (avant < arriere) {
+        int actuel = file[avant++];
+        // permet de ne pas mettre le sommet du quel on part
+        if (actuel != sommet_depart) {
+            printf("%d ", actuel);
+        }
+        for (int i = 0; i < nb_sommets; i++) {
+            if (relations[i].destination.numero == actuel && visite[relations[i].origine.numero - 1] == 0) {
+                //ajoute les sommet adjasant dans le tableau
+                file[arriere++] = relations[i].origine.numero;
+                visite[relations[i].origine.numero - 1] = 1;
             }
         }
     }
 
-    free(queue);
-    free(visited);
+    free(file);
 }
