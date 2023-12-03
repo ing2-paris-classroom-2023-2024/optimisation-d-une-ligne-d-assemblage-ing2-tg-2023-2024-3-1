@@ -200,6 +200,30 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/main.c.s
 .PHONY : main.c.s
 
+precedence.obj: precedence.c.obj
+.PHONY : precedence.obj
+
+# target to build an object file
+precedence.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.obj
+.PHONY : precedence.c.obj
+
+precedence.i: precedence.c.i
+.PHONY : precedence.i
+
+# target to preprocess a source file
+precedence.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.i
+.PHONY : precedence.c.i
+
+precedence.s: precedence.c.s
+.PHONY : precedence.s
+
+# target to generate assembly for a file
+precedence.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.s
+.PHONY : precedence.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -218,6 +242,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... precedence.obj
+	@echo ... precedence.i
+	@echo ... precedence.s
 .PHONY : help
 
 

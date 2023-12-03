@@ -30,7 +30,6 @@ void creer_operation(t_operation *tabOpe, int ordre) {
     for (int i = 0; i < ordre; i++) {
         fscanf(file, "%d %f", &tabOpe[i].numero, &tabOpe[i].temps);
         tabOpe[i].degre = 0;
-        tabOpe[i].couleur = 0;
         tabOpe[i].station = 0;
     }
 
@@ -140,6 +139,9 @@ void contrainte_temps(t_operation *tabOpe, int ordre) {
         printf("probleme lecture du fichier temps_cycle.txt");
         exit(-1);
     }
+
+    creer_operation(tabOpe, ordre);
+
     //récupération du temps de cycle dans le fichier
     float temps_cycle;
     fscanf(file1, "%f", &temps_cycle);
@@ -159,6 +161,10 @@ void contrainte_temps(t_operation *tabOpe, int ordre) {
             i--; // Reconsidérer la même opération pour la nouvelle station
         }
     }
+
+
+    printf("\ncontrainte temps\n");
+    afficher_stations(tabOpe, ordre);
     fclose(file1);
 
 }

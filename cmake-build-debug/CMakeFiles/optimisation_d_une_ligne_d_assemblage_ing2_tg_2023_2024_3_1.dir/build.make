@@ -110,11 +110,26 @@ CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclu
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion_temps.c.s"
 	"C:\Program Files\CODEBL~1\MinGW\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\perra\OneDrive\Documents\GitHub\optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1\exclusion_temps.c -o CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\exclusion_temps.c.s
 
+CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.obj: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/flags.make
+CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.obj: C:/Users/perra/OneDrive/Documents/GitHub/optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1/precedence.c
+CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.obj: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\perra\OneDrive\Documents\GitHub\optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.obj"
+	"C:\Program Files\CODEBL~1\MinGW\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.obj -MF CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\precedence.c.obj.d -o CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\precedence.c.obj -c C:\Users\perra\OneDrive\Documents\GitHub\optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1\precedence.c
+
+CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.i"
+	"C:\Program Files\CODEBL~1\MinGW\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\perra\OneDrive\Documents\GitHub\optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1\precedence.c > CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\precedence.c.i
+
+CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.s"
+	"C:\Program Files\CODEBL~1\MinGW\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\perra\OneDrive\Documents\GitHub\optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1\precedence.c -o CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\precedence.c.s
+
 # Object files for target optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1
 optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1_OBJECTS = \
 "CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/main.c.obj" \
 "CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/ligne_assemblage.c.obj" \
-"CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion_temps.c.obj"
+"CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion_temps.c.obj" \
+"CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.obj"
 
 # External object files for target optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1
 optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1_EXTERNAL_OBJECTS =
@@ -122,11 +137,12 @@ optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1_EXTERNAL_OBJECTS =
 optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/main.c.obj
 optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/ligne_assemblage.c.obj
 optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion_temps.c.obj
+optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.obj
 optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/build.make
 optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/linkLibs.rsp
 optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/objects1.rsp
 optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe: CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\perra\OneDrive\Documents\GitHub\optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\perra\OneDrive\Documents\GitHub\optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

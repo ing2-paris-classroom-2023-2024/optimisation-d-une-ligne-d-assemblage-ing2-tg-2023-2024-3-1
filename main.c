@@ -7,7 +7,7 @@ int main() {
 
     contrainte_exclusion(tabOpe, ordre);
 
-    contrainte_precedence_temps(tabOpe, ordre);
+    contrainte_temps(tabOpe, ordre);
 
     contrainte_exclusion_temps(tabOpe, ordre);
 

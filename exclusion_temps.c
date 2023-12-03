@@ -70,43 +70,31 @@ void contrainte_exclusion_temps(t_operation* tabOpe, int ordre) {
         }
     }
 
-
-    // Algorithme de Welsh Powell
+// Algorithme de Welsh Powell modifié avec contrainte de temps
+    int station = 1;
+    float tempsStation = 0; // Temps total pour la station courante
     for (int i = 0; i < ordre; i++) {
-        if (tabOpe[i].station == 0) {  // Si aucune station n'est encore assignée
-            int station = 1;
-            int station_valide;
-
-            do {
-                station_valide = 1;
-                for (int j = 0; j < ordre; j++) {
-                    if (matriceExclusion[tabOpe[i].numero - 1][tabOpe[j].numero - 1] == 1 && station == tabOpe[j].station) {
-                        station_valide = 0;
-                        break;
-                    }
-                }
-                if (!station_valide) {
-                    station++;
-                }
-            } while (!station_valide);
+        if (tabOpe[i].station == 0) { // Si l'opération n'a pas encore de station assignée
+            // Vérifier si l'opération peut être placée dans la station actuelle sans dépasser le temps de cycle
+            if (tempsStation + tabOpe[i].temps > temps_cycle) {
+                // Si on dépasse le temps de cycle, créer une nouvelle station
+                station++;
+                tempsStation = 0; // Réinitialiser le temps de la station
+            }
 
             tabOpe[i].station = station;
-        }
-    }
+            tempsStation += tabOpe[i].temps; // Ajouter le temps de l'opération au temps total de la station
 
-    int station_actuelle = 1;
-    float temps_actuel = 0;
-
-    for (int i = 0; i < ordre; i++) {
-        if (temps_actuel + tabOpe[i].temps <= temps_cycle) {
-            tabOpe[i].station = station_actuelle;
-            tabOpe[i].debut = temps_actuel;
-            temps_actuel += tabOpe[i].temps;
-        } else {
-            // Passer à la station suivante et réinitialiser le temps actuel
-            station_actuelle++;
-            temps_actuel = 0;
-            i--; // Reconsidérer la même opération pour la nouvelle station
+            // Vérifier les exclusions pour éviter les conflits avec les opérations déjà assignées
+            for (int j = 0; j < i; j++) {
+                if (tabOpe[j].station == station && matriceExclusion[tabOpe[i].numero - 1][tabOpe[j].numero - 1]) {
+                    // Si il y a un conflit, déplacer l'opération courante à la prochaine station
+                    station++;
+                    tempsStation = tabOpe[i].temps; // Réinitialiser le temps de la station avec le temps de l'opération courante
+                    tabOpe[i].station = station;
+                    break; // Sortir de la boucle car on a trouvé un conflit et déplacé l'opération
+                }
+            }
         }
     }
 
