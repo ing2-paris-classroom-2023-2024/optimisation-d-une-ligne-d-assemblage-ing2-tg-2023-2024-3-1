@@ -128,6 +128,30 @@ optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/build
 .PHONY : optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1/fast
 
+exclusion.obj: exclusion.c.obj
+.PHONY : exclusion.obj
+
+# target to build an object file
+exclusion.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion.c.obj
+.PHONY : exclusion.c.obj
+
+exclusion.i: exclusion.c.i
+.PHONY : exclusion.i
+
+# target to preprocess a source file
+exclusion.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion.c.i
+.PHONY : exclusion.c.i
+
+exclusion.s: exclusion.c.s
+.PHONY : exclusion.s
+
+# target to generate assembly for a file
+exclusion.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/exclusion.c.s
+.PHONY : exclusion.c.s
+
 exclusion_temps.obj: exclusion_temps.c.obj
 .PHONY : exclusion_temps.obj
 
@@ -224,6 +248,30 @@ precedence.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence.c.s
 .PHONY : precedence.c.s
 
+precedence_temps.obj: precedence_temps.c.obj
+.PHONY : precedence_temps.obj
+
+# target to build an object file
+precedence_temps.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence_temps.c.obj
+.PHONY : precedence_temps.c.obj
+
+precedence_temps.i: precedence_temps.c.i
+.PHONY : precedence_temps.i
+
+# target to preprocess a source file
+precedence_temps.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence_temps.c.i
+.PHONY : precedence_temps.c.i
+
+precedence_temps.s: precedence_temps.c.s
+.PHONY : precedence_temps.s
+
+# target to generate assembly for a file
+precedence_temps.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir\build.make CMakeFiles/optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1.dir/precedence_temps.c.s
+.PHONY : precedence_temps.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -233,6 +281,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1
+	@echo ... exclusion.obj
+	@echo ... exclusion.i
+	@echo ... exclusion.s
 	@echo ... exclusion_temps.obj
 	@echo ... exclusion_temps.i
 	@echo ... exclusion_temps.s
@@ -245,6 +296,9 @@ help:
 	@echo ... precedence.obj
 	@echo ... precedence.i
 	@echo ... precedence.s
+	@echo ... precedence_temps.obj
+	@echo ... precedence_temps.i
+	@echo ... precedence_temps.s
 .PHONY : help
 
 

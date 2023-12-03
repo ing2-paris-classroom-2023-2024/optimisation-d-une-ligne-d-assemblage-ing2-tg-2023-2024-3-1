@@ -74,6 +74,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/perra/OneDrive/Documents/GitHub/optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1/exclusion.c">
+			<Option target="optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1"/>
+		</Unit>
 		<Unit filename="C:/Users/perra/OneDrive/Documents/GitHub/optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1/exclusion_temps.c">
 			<Option target="optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1"/>
 		</Unit>
@@ -87,6 +90,9 @@
 			<Option target="optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1"/>
 		</Unit>
 		<Unit filename="C:/Users/perra/OneDrive/Documents/GitHub/optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1/precedence.c">
+			<Option target="optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1"/>
+		</Unit>
+		<Unit filename="C:/Users/perra/OneDrive/Documents/GitHub/optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1/precedence_temps.c">
 			<Option target="optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1"/>
 		</Unit>
 		<Unit filename="C:/Users/perra/OneDrive/Documents/GitHub/optimisation-d-une-ligne-d-assemblage-ing2-tg-2023-2024-3-1/CMakeLists.txt">

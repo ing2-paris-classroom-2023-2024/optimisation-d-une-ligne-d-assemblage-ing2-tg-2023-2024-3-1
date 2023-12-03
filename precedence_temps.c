@@ -1,46 +1,8 @@
+
 #include "ligne_assemblage.h"
 
-Graphe* creer_graphe(int ordre) {
-    Graphe* graphe = (Graphe*)malloc(sizeof(Graphe));
-    graphe->ordre = ordre;
-    graphe->pSommet = (pSommet*)malloc(ordre * sizeof(pSommet));
-    graphe->sommetsExistants = (int*)malloc(ordre * sizeof(int));
 
-    for (int i = 0; i < ordre; i++) {
-        graphe->pSommet[i] = (pSommet)malloc(sizeof(struct Sommet));
-        graphe->pSommet[i]->arc = NULL;
-        graphe->pSommet[i]->nbPred = 0;
-        graphe->sommetsExistants[i] = 0;
-    }
-    return graphe;
-}
-
-void creer_arete(Graphe* graphe, int s1, int s2) {
-
-    // On marque les sommets existants à 1 (0 si non marqués)
-    graphe->sommetsExistants[s1] = 1;
-    graphe->sommetsExistants[s2] = 1;
-
-    pArc nouvel_arc = (pArc)malloc(sizeof(struct Arc));
-    nouvel_arc->sommet = s2;
-    nouvel_arc->arc_suivant = graphe->pSommet[s1]->arc;
-    graphe->pSommet[s1]->arc = nouvel_arc;
-    graphe->pSommet[s2]->nbPred++;
-}
-
-void sommets_source(Graphe* graphe, int* sources, int* nbSources) {
-    *nbSources = 0;
-
-    //On déclare qu'un sommet est source s'il n'a pas de prédécesseurs et que ce sommet se trouve dans le fichier (on exclut le 0/14/19 etc...)
-    for (int i = 0; i < graphe->ordre; i++) {
-        if (graphe->pSommet[i]->nbPred == 0 && graphe->sommetsExistants[i]) {
-            sources[*nbSources] = i;
-            (*nbSources)++;
-        }
-    }
-}
-
-void BFS(Graphe* graphe) {
+void BFS_avec_temps(Graphe* graphe, float tempsCycle, t_operation* tabOpe) {
     int* visite = (int*)calloc(graphe->ordre , sizeof(int)); //initialisation à 0;
 
     //initialisation des variables et de la file pour le BFS
@@ -64,6 +26,8 @@ void BFS(Graphe* graphe) {
 
     //Algorithme BFS
     int compteurStation = 1;
+    float tempsStation = 0;
+
     while (debut < fin) {
 
         int sommetCourant = fin - debut;
@@ -72,7 +36,16 @@ void BFS(Graphe* graphe) {
         for (int i = 0; i < sommetCourant; i++) {
             int sommetActuel = file[debut];
             debut++;
-            printf("%d ", sommetActuel);
+            if (tempsStation + tabOpe[sommetActuel].temps <= tempsCycle) {
+                // Ajoutez le sommet à la station actuelle
+                printf("%d ", sommetActuel);
+                tempsStation += tabOpe[sommetActuel].temps;
+            } else {
+                // Temps dépassé, passer à la station suivante
+                compteurStation++;
+                printf("\nStation %d : %d ", compteurStation, sommetActuel);
+                tempsStation = tabOpe[sommetActuel].temps; // Réinitialiser le temps de la station
+            }
 
             pArc arc = graphe->pSommet[sommetActuel]->arc;
             while (arc != NULL) {
@@ -87,6 +60,7 @@ void BFS(Graphe* graphe) {
                 arc = arc->arc_suivant;
             }
         }
+        tempsStation = 0;
         compteurStation++;
         printf("\n");
     }
@@ -95,13 +69,26 @@ void BFS(Graphe* graphe) {
     free(file);
 }
 
-void contrainte_de_precedence(t_operation* tabOpe, int ordre){
-    FILE* file = fopen("../precedences.txt", "r");
 
+void contrainte_precedence_temps(t_operation *tabOpe, int ordre) {
+    FILE *file = fopen("../precedences.txt", "r");
     if (!file) {
-        printf("probleme lecture du file precedences.txt");
+        printf("probleme lecture du fichier precedences.txt");
         exit(-1);
     }
+
+    FILE *file1 = fopen("../temps_cycle.txt", "r");
+    if (!file1) {
+        printf("probleme lecture du fichier temps_cycle.txt");
+        exit(-1);
+    }
+
+    creer_operation(tabOpe, ordre);
+
+    //récupération du temps de cycle dans le fichier
+    float temps_cycle;
+    fscanf(file1, "%f", &temps_cycle);
+
 
     //Récupération de la valeur du sommet la plus élevée pour récupérer l'ordre du graphe
     int ordrePrecedence = 0, op1, op2;
@@ -121,9 +108,10 @@ void contrainte_de_precedence(t_operation* tabOpe, int ordre){
         creer_arete(graphe, num1, num2);
     }
 
-    printf("\ncontrainte precedence\n");
+    printf("\ncontrainte precedence x temps\n");
 
-    BFS(graphe);
+    BFS_avec_temps(graphe, temps_cycle, tabOpe);
 
+    fclose(file1);
     fclose(file);
 }

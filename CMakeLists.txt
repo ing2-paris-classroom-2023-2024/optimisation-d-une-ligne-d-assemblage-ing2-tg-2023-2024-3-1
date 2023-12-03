@@ -7,4 +7,6 @@ add_executable(optimisation_d_une_ligne_d_assemblage_ing2_tg_2023_2024_3_1 main.
         ligne_assemblage.c
         exclusion_temps.c
         exclusion_temps.c
-        precedence.c)
+        precedence.c
+        exclusion.c
+        precedence_temps.c)
