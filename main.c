@@ -13,6 +13,8 @@ int main() {
 
     contrainte_exclusion_temps(tabOpe, ordre);
 
+    contrainte_precedence_temps(tabOpe, ordre);
+
     free(tabOpe);
 
     return 0;
