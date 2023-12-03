@@ -21,8 +21,10 @@ int main() {
 
 
     //appele pour tout les sommet la fonction contrainte de precedence
-    for (int i = 1; i < 36; i++) {
-        contrainte_de_precedence(nombre_arrete, ordre, i, tableau_relations, tableau_operations);
+    for (int i = 0; i < ordre; i++) {
+        int z = tabOpe[i].numero;
+        printf("%d",z);
+        contrainte_de_precedence(nombre_arrete, ordre, z, tableau_relations, tabOpe);
         printf("\n");
     }
 
