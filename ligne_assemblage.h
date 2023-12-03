@@ -1,7 +1,3 @@
-//
-// Created by arthu on 24/11/2023.
-//
-
 #ifndef OPTIMISATION_D_UNE_LIGNE_D_ASSEMBLAGE_ING2_TG_2023_2024_3_1_LIGNE_ASSEMBLAGE_H
 #define OPTIMISATION_D_UNE_LIGNE_D_ASSEMBLAGE_ING2_TG_2023_2024_3_1_LIGNE_ASSEMBLAGE_H
 
@@ -43,6 +39,12 @@ int lire_ordre();
 void creer_operation(t_operation* tabOpe, int ordre);
 
 void afficher_stations(t_operation *tabOpe, int ordre);
+
+Graphe* creer_graphe(int ordre);
+
+void creer_arete(Graphe* graphe, int s1, int s2);
+
+void sommets_source(Graphe* graphe, int* sources, int* nbSources);
 
 void contrainte_exclusion(t_operation* tabOpe, int ordre);
 
